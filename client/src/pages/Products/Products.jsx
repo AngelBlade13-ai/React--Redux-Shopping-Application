@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import List from "../../components/List/List";
 import useFetch from "../../hooks/useFetch";
+import { fallbackSubCategoriesByCategory } from "../../data/fallbackProducts";
 import "./Products.scss";
 
 const Products = () => {
@@ -11,7 +12,7 @@ const Products = () => {
   const [sort, setSort] = useState(null);
   const [selectedSubCats, setSelectedSubCats] = useState([]);
 
-  const { data, loading, error } = useFetch(
+  const { data, loading } = useFetch(
     `/sub-categories?[filters][categories][id][$eq]=${catId}`
   );
 
@@ -26,25 +27,35 @@ const Products = () => {
     );
   };
 
-  const subCategories = Array.isArray(data)
+  const apiSubCategories = Array.isArray(data)
     ? data.filter((item) => {
         const title = item?.attributes?.title || item?.title;
         return Boolean(title);
       })
     : [];
 
+  const fallbackSubCategories = fallbackSubCategoriesByCategory[catId] || [];
+  const useFallbackSubCategories = apiSubCategories.length === 0;
+  const subCategories = useFallbackSubCategories
+    ? fallbackSubCategories
+    : apiSubCategories.map((item) => ({
+        id: item.id,
+        title: item?.attributes?.title || item?.title,
+      }));
+
   return (
     <div className="products">
       <div className="left">
         <div className="filterItem">
           <h2>Product Categories</h2>
-          {error
-            ? "Failed to load subcategories."
-            : loading
+          {useFallbackSubCategories && (
+            <div className="inputItem">Using local fallback subcategories.</div>
+          )}
+          {loading && !useFallbackSubCategories
             ? "loading"
             : subCategories.map((item) => {
                 const subCatId = item?.id;
-                const subCatTitle = item?.attributes?.title || item?.title || `Subcategory ${subCatId}`;
+                const subCatTitle = item?.title || `Subcategory ${subCatId}`;
 
                 return (
                   <div className="inputItem" key={subCatId}>
@@ -102,7 +113,7 @@ const Products = () => {
           src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
           alt=""
         />
-        <List catId={catId} maxPrice={maxPrice} sort={sort} subCats={selectedSubCats}/>
+        <List catId={catId} maxPrice={maxPrice} sort={sort} subCats={selectedSubCats} />
       </div>
     </div>
   );

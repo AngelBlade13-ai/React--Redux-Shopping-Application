@@ -74,3 +74,31 @@ export const fallbackFeaturedProducts = {
     },
   ],
 };
+
+export const fallbackSubCategoriesByCategory = {
+  1: [
+    { id: 11, title: "Tops" },
+    { id: 12, title: "Outerwear" },
+    { id: 13, title: "Skirts" },
+  ],
+  2: [
+    { id: 21, title: "Jackets" },
+    { id: 22, title: "Essentials" },
+    { id: 23, title: "Accessories" },
+  ],
+  3: [
+    { id: 31, title: "Bags" },
+    { id: 32, title: "Footwear" },
+    { id: 33, title: "Jewelry" },
+  ],
+};
+
+export const fallbackCatalogProducts = [
+  { ...fallbackFeaturedProducts.featured[0], categoryId: 1, subCategoryIds: [11] },
+  { ...fallbackFeaturedProducts.featured[1], categoryId: 1, subCategoryIds: [12] },
+  { ...fallbackFeaturedProducts.featured[2], categoryId: 1, subCategoryIds: [13] },
+  { ...fallbackFeaturedProducts.trending[0], categoryId: 2, subCategoryIds: [23] },
+  { ...fallbackFeaturedProducts.trending[1], categoryId: 2, subCategoryIds: [21] },
+  { ...fallbackFeaturedProducts.trending[2], categoryId: 3, subCategoryIds: [31] },
+  { ...fallbackFeaturedProducts.trending[3], categoryId: 3, subCategoryIds: [32] },
+];
