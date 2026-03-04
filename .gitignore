@@ -1,0 +1,32 @@
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Root
+node_modules/
+
+# Frontend (CRA)
+client/node_modules/
+client/build/
+client/dist/
+client/.env
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+client/.git_backup/
+
+# Strapi app
+api/my-strapi-project/node_modules/
+api/my-strapi-project/build/
+api/my-strapi-project/.tmp/
+api/my-strapi-project/.strapi/
+api/my-strapi-project/.env
+api/my-strapi-project/public/uploads/
+api/my-strapi-project/data/uploads/
+api/my-strapi-project/database/*.db
+api/my-strapi-project/database/*.sqlite
+
+# Optional generated data/artifacts
+api/my-strapi-project/.cache/
