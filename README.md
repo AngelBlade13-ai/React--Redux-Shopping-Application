@@ -79,7 +79,7 @@ npm run develop
 
 3. Configure backend Stripe env variables in `api/my-strapi-project/.env`:
 ```env
-STRIPE_SECRET_KEY=sk_test_your_secret_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
 CLIENT_URL=http://localhost:3000
 ```
 
